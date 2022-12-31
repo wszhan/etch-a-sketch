@@ -3,17 +3,25 @@ const container = document.querySelector("div.container");
 
 createGrid(1); // init
 
-const colors = ['#ff0000', '#00ff00', '#0000ff'];
+const COLORS = ['#ff0000', '#00ff00', '#0000ff'];
+const PROMPT_MSG = "What do you want the dimension of the grid to be?";
+const WARNING_MSG = "Please enter a positive value less than or equal to 100";
 
 const btn = document.querySelector("button");
 
 function renderRandomColor(gridItem) {
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     gridItem.style.backgroundColor = randomColor;
 }
 
 btn.addEventListener("click", (e) => {
-  const x = prompt("What do you want the dimension of the grid to be?");
+  let x = prompt(PROMPT_MSG);
+
+  while (Number(x) && Number(x) > 100) {
+    alert(WARNING_MSG);
+    x = prompt(PROMPT_MSG);
+  }
+
   createGrid(x);
 });
 
